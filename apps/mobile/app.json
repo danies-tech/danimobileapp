@@ -1,0 +1,8 @@
+{
+  "expo": {
+    "name": "Restaurant App",
+    "slug": "restaurant-app",
+    "scheme": "restaurantapp",
+    "plugins": ["expo-router", "expo-notifications"]
+  }
+}
