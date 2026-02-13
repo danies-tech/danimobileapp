@@ -13,7 +13,12 @@ SECRET_KEY = "dev-secret-key-change-me"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(
+    # bcrypt has a 72-byte input limit; bcrypt_sha256 pre-hashes and avoids
+    # runtime ValueError for long user passwords while keeping bcrypt storage.
+    schemes=["bcrypt_sha256"],
+    deprecated="auto",
+)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 

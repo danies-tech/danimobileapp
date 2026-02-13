@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 
+from app.auth import hash_password, verify_password
 from main import app
 
 client = TestClient(app)
@@ -35,3 +36,10 @@ def test_create_order_flow():
     )
     assert order.status_code == 200
     assert order.json()["status"] == "Placed"
+
+
+def test_long_password_hashing_supported():
+    long_password = "p" * 200
+    password_hash = hash_password(long_password)
+
+    assert verify_password(long_password, password_hash) is True
